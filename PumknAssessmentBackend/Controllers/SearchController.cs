@@ -15,11 +15,11 @@ namespace PumknAssessmentBackend.Controllers
 			_beerService = beerService;
 		}
 
-		[HttpPost]
+		[HttpGet]
 		[Route("/search")]
-		public async Task<ActionResult<BackendServiceResponse<List<Beer>>>> GetRandomBeer([FromBody] SearchQueryDto searchQueryDto)
+		public async Task<ActionResult<BackendServiceResponse<List<Beer>>>> GetRandomBeer(string query)
 		{
-			BackendServiceResponse<List<Beer>> response = await _beerService.SearchBeer(searchQueryDto.Query);
+			BackendServiceResponse<List<Beer>> response = await _beerService.SearchBeer(query);
 
 			return response.Success ? Ok(response) : StatusCode((int)response.StatusCode, response.Message);
 		}
